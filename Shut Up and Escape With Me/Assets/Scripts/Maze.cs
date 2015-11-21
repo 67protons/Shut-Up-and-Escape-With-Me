@@ -11,18 +11,20 @@ public class Maze : MonoBehaviour {
 
     // getWidth() returns the maze's width (i.e., how many cells across
     // is it?)
-    public int width = 50;
-    public int height = 50;
+    public int width = 10;
+    public int height = 10;
 
     public List<List<Cell>> maze = new List<List<Cell>>();
 
     void Awake(){
+        int i = 0;
         for (int col = 0; col < width; col++){
             maze.Add(new List<Cell>());
             for (int row = 0; row < height; row++){            
                 maze[col].Add(new Cell());
+                i++;
             }
-        }
+        }        
     }
 
     // wallExists() takes a cell's (x, y) coordinate and a Direction,
@@ -60,6 +62,12 @@ public class Maze : MonoBehaviour {
     public void removeWall(int x, int y, Direction.direction direction)
     {
         maze[x][y].RemoveWall(direction);
+        int xDelta = directionToCartesian(direction)[0];
+        int yDelta = directionToCartesian(direction)[1];
+        if (isValidCell(x + xDelta, y + yDelta))
+        {
+            maze[x+xDelta][y+yDelta].RemoveWall(oppositeDirection(direction));
+        }        
     }
 
 
@@ -90,7 +98,44 @@ public class Maze : MonoBehaviour {
         }
     }
 
+    private bool isValidCell(int x, int y)
+    {
+        return (x >= 0 && x < width) && (y >= 0 && y < height);
+    }
 
+    private List<int> directionToCartesian(Direction.direction direction)
+    {
+        switch (direction)
+        {
+            case Direction.direction.up:
+                return new List<int> { 0, 1 };
+            case Direction.direction.down:
+                return new List<int> { 0, -1 };
+            case Direction.direction.left:
+                return new List<int> { -1, 0 };
+            case Direction.direction.right:
+                return new List<int> { 1, 0 };
+            default:
+                return new List<int>();
+        }
+    }
+
+    private Direction.direction oppositeDirection(Direction.direction direction)
+    {
+        switch (direction)
+        {
+            case Direction.direction.up:
+                return Direction.direction.down;
+            case Direction.direction.down:
+                return Direction.direction.up;
+            case Direction.direction.left:
+                return Direction.direction.right;
+            case Direction.direction.right:
+                return Direction.direction.left;
+            default:
+                return Direction.direction.up;    //should never happen
+        }
+    }
     //// clone() returns a dynamically-allocated copy of a Maze object.
     //// The copy will be an object of the same type as the object you
     //// call it on, though the pointer's type will be Maze.
