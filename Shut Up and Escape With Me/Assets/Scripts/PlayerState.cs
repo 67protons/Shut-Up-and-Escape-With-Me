@@ -56,25 +56,24 @@ public class PlayerState : MonoBehaviour {
         }
     }
 
-    public float SnapDegree(float degree)
+    public Vector3 RotationToVector(float degree)
     {
-        if (degree >= 315 || degree < 45)
+        if (degree >= 315 || degree < 45)   //Direction.up
         {
-            return 0f;
+            return new Vector3(0, 0, 1);
         }
-        else if (degree >= 45 && degree < 135)
+        else if (degree >= 45 && degree < 135)  //Direction.right
         {
-            return 90f;
+            return new Vector3(1, 0, 0);
         }
-        else if (degree >= 135 && degree < 225)
+        else if (degree >= 135 && degree < 225) //Direction.Down
         {
-            degree = 180f;
+            return new Vector3(0, 0, -1);
         }
-        else if (degree >= 225 && degree < 315)
+        else if (degree >= 225 && degree < 315) //Direction.Left
         {
-            degree = 270;
+            return new Vector3(-1, 0, 0);
         }
-
-        return 0f;
+        return new Vector3(0, 0, 0);
     }   
 }
