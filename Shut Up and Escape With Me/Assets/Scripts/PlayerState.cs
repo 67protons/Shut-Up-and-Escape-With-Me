@@ -3,12 +3,11 @@ using System.Collections;
 
 public class PlayerState : MonoBehaviour {
     public Maze maze;
-
-    private GameObject playerController;
+    public GameObject playerController;
 
 	// Use this for initialization
 	void Start () {
-        playerController = this.transform.FindChild("OVRPlayerController").gameObject;
+        //playerController = this.transform.FindChild("OVRPlayerController").gameObject;
         Orientate(0, 0);
 	}
 	
@@ -20,14 +19,12 @@ public class PlayerState : MonoBehaviour {
     public void Orientate(int x, int y)
     {
         if (!maze.wallExists(x, y, Direction.direction.up))
-        {
-            Debug.Log("No Wall Up");
+        {            
             FaceDirection(Direction.direction.up);
             return;
         }
         else if (!maze.wallExists(x, y, Direction.direction.right))
-        {
-            Debug.Log("No Wall Right");
+        {           
             FaceDirection(Direction.direction.right);
             return;
         }
