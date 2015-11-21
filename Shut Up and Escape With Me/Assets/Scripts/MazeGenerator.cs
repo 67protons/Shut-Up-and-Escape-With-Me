@@ -2,14 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class MazeGenerator : MonoBehaviour {	
-    public GameObject mazeObject;
-    public GameObject cellPrefab;
-    private Maze mazeClass;
+public class MazeGenerator : MonoBehaviour {	    
+    public Maze mazeClass;
+    public GameObject cellPrefab;    
 
 
-    void Start(){
-        mazeClass = mazeObject.GetComponent<Maze>();
+    void Awake(){        
         generateMaze();
         mazeClass.removeWall(mazeClass.width - 1, mazeClass.height - 1, Direction.direction.up);
         buildMaze();        

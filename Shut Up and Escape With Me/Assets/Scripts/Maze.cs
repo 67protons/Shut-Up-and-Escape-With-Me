@@ -2,15 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Maze : MonoBehaviour {
-    //// Because we'll be inheriting from this class, we'll declare the
-    //// destructor to be virtual, though we don't need it to do anything
-    //// special.
-    //virtual ~Maze() = default;
-
-
-    // getWidth() returns the maze's width (i.e., how many cells across
-    // is it?)
+public class Maze : MonoBehaviour {    
     public int width = 10;
     public int height = 10;
 
@@ -136,8 +128,4 @@ public class Maze : MonoBehaviour {
                 return Direction.direction.up;    //should never happen
         }
     }
-    //// clone() returns a dynamically-allocated copy of a Maze object.
-    //// The copy will be an object of the same type as the object you
-    //// call it on, though the pointer's type will be Maze.
-    //virtual std::unique_ptr<Maze> clone() const = 0;
 }

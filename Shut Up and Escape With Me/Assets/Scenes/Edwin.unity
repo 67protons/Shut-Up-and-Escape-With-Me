@@ -243,7 +243,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1 &2088863461
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e0ac1bc73945604e90fbe0f29f2d6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maze: {fileID: 1934101590}
 --- !u!1 &2125074282
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +325,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!114 &2125074284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,5 +337,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41608a1c216fecb4fbb3d4a68afb1877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mazeObject: {fileID: 1934101589}
+  mazeClass: {fileID: 1934101590}
   cellPrefab: {fileID: 100456, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
