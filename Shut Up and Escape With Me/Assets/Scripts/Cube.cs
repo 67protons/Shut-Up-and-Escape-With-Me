@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Cube : MonoBehaviour
 {
-    public float speed = 1.0f;
     void Update()
     {
         float MoveForward = Input.GetAxis("Vertical") * 10 * Time.deltaTime;
