@@ -1,7 +1,22 @@
 Title: Shut Up and Escape With Me
+
 Genre: Action Labyrinth Escape Game
+
 Mechanics:
 -Simple Action Fighting, first person with a sword
 -Horror style enemies, for now boxes though
 -Sentinel Mechanic: Shoot out sentinel, change camera view until it collides and fades away back to main character POV
+
+Map Style:
+-TBA
+-Idea: Lab Horror Style
+-Idea: Farm Style
+
+Assets Needed:
+Labyrinth Walls
+Ground
+Sentinel
+Monster Types
+Environment
+
 Goal: Escape the Labyrinth
