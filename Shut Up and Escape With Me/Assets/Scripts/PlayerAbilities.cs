@@ -46,11 +46,9 @@ public class PlayerAbilities : MonoBehaviour {
             droneOut = true;
             playerController.GetComponentInChildren<OVRScreenFade>().OnEnable();
             drone = (GameObject)Instantiate(dronePrefab,
-                playerController.transform.position + playerController.transform.forward, Quaternion.identity);//playerController.transform.rotation);
-            //Physics.IgnoreCollision(drone.GetComponent<Collider>(), this.GetComponent<Collider>());
+                playerController.transform.position + playerController.transform.forward, Quaternion.identity);
             playerController.transform.parent = drone.transform;            
-            float yDegrees = playerController.transform.localRotation.eulerAngles.y;
-            Debug.Log(yDegrees);
+            float yDegrees = playerController.transform.localRotation.eulerAngles.y;            
             drone.GetComponent<Rigidbody>().AddForce(state.RotationToVector(yDegrees) * -50, 0);
         }        
     }
