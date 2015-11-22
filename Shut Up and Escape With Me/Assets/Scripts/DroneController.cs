@@ -7,6 +7,13 @@ public class DroneController : MonoBehaviour {
 
     public GameObject purticals;        //I KNOW HOW TO SPELL ITS JUST 4:43 AM
 
+    private AudioSource growl;
+    
+    void Start()
+    {
+        growl = this.GetComponent<AudioSource>();
+    }        
+
     void OnTriggerEnter(Collider hitObject)
     {
         if (hitObject.CompareTag("Wall"))
@@ -17,6 +24,7 @@ public class DroneController : MonoBehaviour {
         {
             if (hitObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("idle"))
             {
+                growl.PlayOneShot(growl.clip);
                 Instantiate(purticals, this.transform.position, Quaternion.identity);
             }
             else

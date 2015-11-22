@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Monster_Behavior : MonoBehaviour {   
+public class Monster_Behavior : MonoBehaviour {
+    private AudioSource enragedGrowl;
     private int col = 0;
     private int row = 0;
     private Maze maze;
@@ -9,6 +10,7 @@ public class Monster_Behavior : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        enragedGrowl = GetComponent<AudioSource>();
         maze = GameObject.Find("Maze").GetComponent<Maze>();
         player = GameObject.Find("Player");
         Orientate(col, row);  
@@ -36,6 +38,7 @@ public class Monster_Behavior : MonoBehaviour {
         if (hitObject.CompareTag("Player"))
         {            
             GetComponent<Animator>().SetBool("rising", true);
+            enragedGrowl.PlayOneShot(enragedGrowl.clip);       
         }
     }
 
