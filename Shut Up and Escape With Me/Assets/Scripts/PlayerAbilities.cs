@@ -9,6 +9,7 @@ public class PlayerAbilities : MonoBehaviour {
     public Material yellowSeal;
     public Material blueSeal;
     public Material defaultWall;
+    public GameObject[] head = new GameObject[8];
 
     private GameObject OVRcamera;
     private GameObject drone;
@@ -25,6 +26,7 @@ public class PlayerAbilities : MonoBehaviour {
         OVRcamera = playerController.transform.FindChild("OVRCameraRig").gameObject;
         acceleration = playerController.GetComponent<OVRPlayerController>().Acceleration;
         rotation = playerController.GetComponent<OVRPlayerController>().RotationAmount;
+        SetHeadTo(false);
     }
 		
 	void Update () {
@@ -72,6 +74,8 @@ public class PlayerAbilities : MonoBehaviour {
         playerController.GetComponent<OVRPlayerController>().Acceleration = 0;
         playerController.GetComponent<OVRPlayerController>().RotationAmount = 0;
 
+        SetHeadTo(true);
+
         float yDegrees = playerController.transform.localRotation.eulerAngles.y;
 
         //Debug.Log(state.RotationToVector(yDegrees));
@@ -87,6 +91,7 @@ public class PlayerAbilities : MonoBehaviour {
     {
         if (droneOut)
         {
+            SetHeadTo(false);
             OVRcamera.GetComponentInChildren<OVRScreenFade>().OnEnable();
 
             //OVRcamera.transform.rotation = Quaternion.identity;
@@ -151,6 +156,14 @@ public class PlayerAbilities : MonoBehaviour {
         else
         {
             return null;
+        }
+    }
+
+    private void SetHeadTo(bool visible)
+    {
+        foreach (GameObject headPiece in head)
+        {
+            headPiece.SetActive(visible);
         }
     }
 }
