@@ -13,6 +13,12 @@ public class Monster_Behavior : MonoBehaviour {
         Orientate(col, row);  
 	}	
 
+    void Update ()
+    {
+        if (GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Destroy"))
+            Destroy(this.gameObject);
+    }
+
     public void Initialize(int col, int row)
     {
         this.col = col;
@@ -53,6 +59,10 @@ public class Monster_Behavior : MonoBehaviour {
             Direction.FaceDirection(this.gameObject, Direction.direction.left);
             return;
         }
+    }
+
+    private void Patrol()
+    {
 
     }
 }

@@ -89,21 +89,11 @@ public class PlayerAbilities : MonoBehaviour {
     {
         foreach (GameObject enemy in enemiesInMeleeRange)
         {
-            Destroy(enemy);
-        }
-        //float yDegrees = playerController.transform.localRotation.eulerAngles.y;
-        ////Vector3 directionForward = Direction.DegreeToVector(yDegrees);
-        //RaycastHit hit;
-        //if (Physics.Raycast(playerController.transform.position, playerController.transform.forward, out hit, meleeDistance))
-        //{
-        //    Destroy(hit.transform.gameObject);
-        //    //Debug.Log(hit.collider.name);
-        //    //if (hit.collider.CompareTag("Enemy"))
-        //    //{                
-        //    //    Debug.Log("Hello?");
-        //    //    Destroy(hit.transform.gameObject);
-        //    //}
-        //}
+            enemy.GetComponent<Animator>().SetBool("idleLoop", false);
+            enemy.GetComponent<Animator>().SetBool("isDead", true);
+            enemy.GetComponent<SphereCollider>().enabled = false;
+            enemy.GetComponent<BoxCollider>().enabled = false;
+        }     
     }
 
     private void CreateDrone()
