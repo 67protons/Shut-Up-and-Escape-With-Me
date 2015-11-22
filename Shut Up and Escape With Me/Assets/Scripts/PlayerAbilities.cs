@@ -6,28 +6,35 @@ public class PlayerAbilities : MonoBehaviour {
     public GameObject dronePrefab;
     public GameObject playerController;
 
+    private GameObject OVRcamera;
     private GameObject drone;
     private PlayerState state;
     private bool droneOut = false;
-
-	// Use this for initialization
-	void Start () {
-        //playerController = this.transform.FindChild("OVRPlayerController").gameObject;
-        state = this.GetComponent<PlayerState>();
-	}
 	
-	// Update is called once per frame
+	void Start () {
+        state = this.GetComponent<PlayerState>();
+        OVRcamera = playerController.transform.FindChild("OVRCameraRig").gameObject;
+	}
+		
 	void Update () {        
         if (Input.GetKeyDown(KeyCode.JoystickButton4) || Input.GetKeyDown(KeyCode.Mouse1))
         {
             CreateDrone();
         }
-        
-        //Debugging
-        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.JoystickButton5))
+
+
+        if (droneOut)
         {
-            ReturnPlayer();
+            if (drone.GetComponent<DroneController>().collided)
+            {
+                ReturnPlayer();
+            }
         }
+        //Debugging
+        //if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.JoystickButton5))
+        //{
+        //    ReturnPlayer();
+        //}
         //End debugging        
 	}
 
@@ -43,13 +50,19 @@ public class PlayerAbilities : MonoBehaviour {
     {
         if (!droneOut)
         {
-            droneOut = true;
-            playerController.GetComponentInChildren<OVRScreenFade>().OnEnable();
+            droneOut = true;            
+            playerController.GetComponent<OVRPlayerController>().Acceleration = 0;
+            playerController.GetComponent<OVRPlayerController>().RotationAmount = 0;           
+
+            float yDegrees = playerController.transform.localRotation.eulerAngles.y;
+
+            //Debug.Log(state.RotationToVector(yDegrees));
+            //Quaternion rotation = Quaternion.Euler(state.RotationToVector(yDegrees));
+
             drone = (GameObject)Instantiate(dronePrefab,
                 playerController.transform.position + playerController.transform.forward, Quaternion.identity);
-            playerController.transform.parent = drone.transform;            
-            float yDegrees = playerController.transform.localRotation.eulerAngles.y;            
-            drone.GetComponent<Rigidbody>().AddForce(state.RotationToVector(yDegrees) * -50, 0);
+            OVRcamera.transform.parent = drone.transform;                                  
+            drone.GetComponent<Rigidbody>().AddForce(state.RotationToVector(yDegrees) * 100, 0);
         }        
     }
 
@@ -57,9 +70,14 @@ public class PlayerAbilities : MonoBehaviour {
     {
         if (droneOut)
         {
-            playerController.transform.position = transform.position;
-            playerController.transform.parent = null;
+            OVRcamera.GetComponentInChildren<OVRScreenFade>().OnEnable();
+
+            //OVRcamera.transform.rotation = Quaternion.identity;
+            OVRcamera.transform.position = playerController.transform.position;
+            OVRcamera.transform.parent = playerController.transform;
             Destroy(drone);
+            playerController.GetComponent<OVRPlayerController>().Acceleration = 0.3f;
+            playerController.GetComponent<OVRPlayerController>().RotationAmount = 1.5f;      
             droneOut = false;
         }
     }
