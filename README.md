@@ -1,4 +1,5 @@
 Title: Shut Up and Escape With Me
+
 By: Edwin Ho, Peter Truong, and Efren Aguilar
 
 Programming for Hack UCI 2015
