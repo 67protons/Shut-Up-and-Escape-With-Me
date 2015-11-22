@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerAbilities : MonoBehaviour {
     
@@ -10,6 +11,8 @@ public class PlayerAbilities : MonoBehaviour {
     public Material blueSeal;
     public Material defaultWall;
     public GameObject[] head = new GameObject[8];
+    public float paintRange = 3;
+    public float meleeDistance = 1.5f;
 
     private GameObject OVRcamera;
     private GameObject drone;
@@ -20,16 +23,31 @@ public class PlayerAbilities : MonoBehaviour {
     private bool droneOut = false;
     private float acceleration;
     private float rotation;
+    private Vector3 cameraOffset;
+    private List<GameObject> enemiesInMeleeRange = new List<GameObject>();
 	    
 	void Start () {
         //state = this.GetComponent<PlayerState>();
         OVRcamera = playerController.transform.FindChild("OVRCameraRig").gameObject;
         acceleration = playerController.GetComponent<OVRPlayerController>().Acceleration;
         rotation = playerController.GetComponent<OVRPlayerController>().RotationAmount;
+        enemiesInMeleeRange = transform.GetComponentInChildren<PlayerMeleeManager>().enemiesInMeleeRange;
         SetHeadTo(false);
     }
 		
 	void Update () {
+        if (Input.GetAxisRaw("RightTrigger") == 1 && !droneOut)
+        {
+            playerController.GetComponent<OVRPlayerController>().Acceleration = acceleration * 2;
+        }
+        if (Input.GetAxisRaw("RightTrigger") == 0 && !droneOut)
+        {
+            playerController.GetComponent<OVRPlayerController>().Acceleration = acceleration;
+        }
+        if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            MeleeAtack();
+        }
         if (Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Z))
         {
             PaintWall(redSeal);
@@ -69,21 +87,39 @@ public class PlayerAbilities : MonoBehaviour {
 
     private void MeleeAtack()
     {
-
+        foreach (GameObject enemy in enemiesInMeleeRange)
+        {
+            Destroy(enemy);
+        }
+        //float yDegrees = playerController.transform.localRotation.eulerAngles.y;
+        ////Vector3 directionForward = Direction.DegreeToVector(yDegrees);
+        //RaycastHit hit;
+        //if (Physics.Raycast(playerController.transform.position, playerController.transform.forward, out hit, meleeDistance))
+        //{
+        //    Destroy(hit.transform.gameObject);
+        //    //Debug.Log(hit.collider.name);
+        //    //if (hit.collider.CompareTag("Enemy"))
+        //    //{                
+        //    //    Debug.Log("Hello?");
+        //    //    Destroy(hit.transform.gameObject);
+        //    //}
+        //}
     }
 
     private void CreateDrone()
     {
         droneOut = true;
+        OVRcamera.GetComponentInChildren<OVRScreenFade>().OnEnable();
         playerController.GetComponent<OVRPlayerController>().Acceleration = 0;
         playerController.GetComponent<OVRPlayerController>().RotationAmount = 0;
 
-        SetHeadTo(true);
+        SetHeadTo(true);        
+
 
         float yDegrees = playerController.transform.localRotation.eulerAngles.y;        
-
         drone = (GameObject)Instantiate(dronePrefab,
             playerController.transform.position + playerController.transform.forward, Quaternion.identity);
+        cameraOffset = OVRcamera.transform.position;
         OVRcamera.transform.parent = drone.transform;
         drone.GetComponent<Rigidbody>().AddForce(Direction.DegreeToVector(yDegrees) * 140, 0);        
     }
@@ -94,7 +130,7 @@ public class PlayerAbilities : MonoBehaviour {
         {
             SetHeadTo(false);
             OVRcamera.GetComponentInChildren<OVRScreenFade>().OnEnable();            
-            OVRcamera.transform.position = playerController.transform.position;
+            OVRcamera.transform.position = cameraOffset;
             OVRcamera.transform.parent = playerController.transform;
             Destroy(drone);
             playerController.GetComponent<OVRPlayerController>().Acceleration = acceleration;
@@ -108,7 +144,7 @@ public class PlayerAbilities : MonoBehaviour {
         float yDegrees = playerController.transform.localRotation.eulerAngles.y;
         Vector3 directionForward = Direction.DegreeToVector(yDegrees);
         RaycastHit hit;
-        if (Physics.Raycast(playerController.transform.position, directionForward, out hit, 3))
+        if (Physics.Raycast(playerController.transform.position, directionForward, out hit, paintRange))
         {
             if (hit.collider.CompareTag("Wall"))
             {

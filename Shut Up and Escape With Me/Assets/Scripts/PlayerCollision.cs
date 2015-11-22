@@ -14,7 +14,11 @@ public class PlayerCollision : MonoBehaviour
         if(hitObject.CompareTag("Enemy"))
         {
             if(hitObject.GetType() == typeof(BoxCollider))
-                Debug.Log(hitObject);
+            {
+
+            }
+
+                //Debug.Log(hitObject);
         }
     }
 }

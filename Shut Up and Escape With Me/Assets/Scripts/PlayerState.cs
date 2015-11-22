@@ -5,15 +5,20 @@ public class PlayerState : MonoBehaviour {
     public Maze maze;
     public GameObject playerController;
 
+    private float yHeight = 0f;
+
 	// Use this for initialization
 	void Start () {
         //playerController = this.transform.FindChild("OVRPlayerController").gameObject;
         Orientate(0, 0);
+        yHeight = playerController.transform.position.y;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void LateUpdate () {
+        Vector3 currentPosition = new Vector3(playerController.transform.position.x, yHeight, playerController.transform.position.z);        
+        playerController.transform.position = currentPosition;
+        this.transform.rotation = playerController.transform.rotation;
 	}
 
     public void Orientate(int x, int y)

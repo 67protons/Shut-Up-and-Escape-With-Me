@@ -240,7 +240,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 416198, guid: 905a9f74cf3e0ad4a8321989621e1e37, type: 2}
       propertyPath: m_LocalRotation.w
-      value: .0608067103
+      value: .0608067028
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417586, guid: 905a9f74cf3e0ad4a8321989621e1e37, type: 2}
+      propertyPath: useCurvesHeight
+      value: .25
+      objectReference: {fileID: 0}
+    - target: {fileID: 11411608, guid: 905a9f74cf3e0ad4a8321989621e1e37, type: 2}
+      propertyPath: RotationAmount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 405230, guid: 905a9f74cf3e0ad4a8321989621e1e37, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417586, guid: 905a9f74cf3e0ad4a8321989621e1e37, type: 2}
+      propertyPath: useCurves
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 905a9f74cf3e0ad4a8321989621e1e37, type: 2}

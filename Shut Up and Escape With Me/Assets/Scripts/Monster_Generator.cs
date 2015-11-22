@@ -27,8 +27,8 @@ public class Monster_Generator : MonoBehaviour {
         Vector3 cellLocation;
         for (int i = 0; i < MonsterCount; i++)
         {
-            row = Random.Range(1, maze.mazeClass.height - 1);
-            col = Random.Range(1, maze.mazeClass.width - 1);
+            row = Random.Range(1, maze.mazeClass.height-1);
+            col = Random.Range(1, maze.mazeClass.width-1);
             if (monsterPlacement[col][row] != 1)
                 monsterPlacement[col][row] = 1;
             else
