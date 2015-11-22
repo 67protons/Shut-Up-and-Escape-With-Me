@@ -36,7 +36,8 @@ public class Monster_Generator : MonoBehaviour {
                 i--;
                 continue;
             }
-            cellLocation = new Vector3(col * 3, 0, row * 3);
+            float floorOffset = .3f;
+            cellLocation = new Vector3(col * 3, transform.localScale.y + floorOffset, row * 3);
             GameObject monster = (GameObject)Instantiate(monsterPrefab, cellLocation, Quaternion.identity);
         }
 	}
