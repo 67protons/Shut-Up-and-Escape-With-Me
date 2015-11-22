@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerState : MonoBehaviour {
     public Maze maze;
     public GameObject playerController;
+    public float health = 100f;
+    public Text healthText;
 
     private float yHeight = 0f;
 
@@ -14,6 +17,15 @@ public class PlayerState : MonoBehaviour {
         yHeight = playerController.transform.position.y;
 	}
 	
+    void Update()
+    {
+        healthText.text = "Health: " + health.ToString();
+        if (health <= 0f)
+        {
+            Application.LoadLevel("Game");
+        }
+    }
+
 	// Update is called once per frame
 	void LateUpdate () {
         Vector3 currentPosition = new Vector3(playerController.transform.position.x, yHeight, playerController.transform.position.z);        
@@ -33,6 +45,10 @@ public class PlayerState : MonoBehaviour {
             Direction.FaceDirection(playerController, Direction.direction.right);
             return;
         }
-
     }    
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+    }
 }

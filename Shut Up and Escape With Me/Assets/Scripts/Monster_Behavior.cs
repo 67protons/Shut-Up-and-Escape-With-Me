@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Monster_Behavior : MonoBehaviour {    
+public class Monster_Behavior : MonoBehaviour {   
     private int col = 0;
     private int row = 0;
     private Maze maze;
@@ -26,7 +26,7 @@ public class Monster_Behavior : MonoBehaviour {
     {
         this.col = col;
         this.row = row;
-    }
+    }    
 
     void OnTriggerEnter(Collider hitObject)
     {
@@ -36,6 +36,14 @@ public class Monster_Behavior : MonoBehaviour {
         if (hitObject.CompareTag("Player"))
         {            
             GetComponent<Animator>().SetBool("rising", true);
+        }
+    }
+
+    void OnTriggerStay(Collider hitObject)
+    {
+        if (hitObject.CompareTag("Player") && GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        {
+            hitObject.GetComponent<PlayerState>().TakeDamage(100f * Time.deltaTime);
         }
     }
 
