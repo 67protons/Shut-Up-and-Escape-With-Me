@@ -366,84 +366,6 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 416434, guid: e5ffed07ad403694b8ac18281ce426fe, type: 2}
   m_PrefabInternal: {fileID: 559215334}
---- !u!1001 &1519300747
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 409168, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 409168, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 409168, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 409168, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 409168, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 409168, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 409168, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 409168, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 185234, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 187746, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 165598, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 165670, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2346212, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 82d4ccd149c7e00429bf44bdad350ca7, type: 2}
-    - target: {fileID: 2379916, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 82d4ccd149c7e00429bf44bdad350ca7, type: 2}
-    - target: {fileID: 2382630, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 82d4ccd149c7e00429bf44bdad350ca7, type: 2}
-    - target: {fileID: 2361312, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 82d4ccd149c7e00429bf44bdad350ca7, type: 2}
-    - target: {fileID: 2355710, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 82d4ccd149c7e00429bf44bdad350ca7, type: 2}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 328a8d09250d5ec4a9bbdbbd3f4125be, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1538671471
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +509,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dronePrefab: {fileID: 135636, guid: d0717dbeca08abf4f86324eb3a49b2af, type: 2}
   playerController: {fileID: 821848373}
+  redSeal: {fileID: 2100000, guid: 85d6ae20658eaba409e90c31bce42071, type: 2}
+  yellowSeal: {fileID: 2100000, guid: 1de5781cea77cb7488ee837ce0e8123b, type: 2}
+  blueSeal: {fileID: 2100000, guid: 77888cf26899dda4ca68d45231d6d89b, type: 2}
+  defaultWall: {fileID: 2100000, guid: 82d4ccd149c7e00429bf44bdad350ca7, type: 2}
 --- !u!114 &2088863464
 MonoBehaviour:
   m_ObjectHideFlags: 0
