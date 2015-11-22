@@ -6,20 +6,21 @@ public class PlayerAbilities : MonoBehaviour {
     
     public GameObject dronePrefab;
     public GameObject playerController;
+    public MazeGenerator mazeManager;
     public Material redSeal;
     public Material yellowSeal;
     public Material blueSeal;
     public Material defaultWall;
     public GameObject[] head = new GameObject[8];
     public float paintRange = 3;
-    public float meleeDistance = 1.5f;
+    public float meleeDistance = 1.5f;    
 
     private GameObject OVRcamera;
     private GameObject drone;
     private GameObject redWall;
     private GameObject blueWall;
     private GameObject yellowWall;
-    //private PlayerState state;
+    private PlayerState state;
     private bool droneOut = false;
     private float acceleration;
     private float rotation;
@@ -27,7 +28,7 @@ public class PlayerAbilities : MonoBehaviour {
     private List<GameObject> enemiesInMeleeRange = new List<GameObject>();
 	    
 	void Start () {
-        //state = this.GetComponent<PlayerState>();
+        state = this.GetComponent<PlayerState>();
         OVRcamera = playerController.transform.FindChild("OVRCameraRig").gameObject;
         acceleration = playerController.GetComponent<OVRPlayerController>().Acceleration;
         rotation = playerController.GetComponent<OVRPlayerController>().RotationAmount;
@@ -134,21 +135,35 @@ public class PlayerAbilities : MonoBehaviour {
     private void PaintWall(Material color)
     {
         float yDegrees = playerController.transform.localRotation.eulerAngles.y;
-        Vector3 directionForward = Direction.DegreeToVector(yDegrees);
-        RaycastHit hit;
-        if (Physics.Raycast(playerController.transform.position, directionForward, out hit, paintRange))
-        {
-            if (hit.collider.CompareTag("Wall"))
+        List<int> currentCell = state.positionToCell();
+        if (state.maze.wallExists(currentCell[0], currentCell[1], Direction.DegreeToDirection(yDegrees)))
+        {           
+            if (MaterialToWall(color) != null)
             {
-                if (MaterialToWall(color) != null)
-                {
-                    MaterialToWall(color).GetComponent<MeshRenderer>().material = defaultWall;
-                }
+                MaterialToWall(color).GetComponent<MeshRenderer>().material = defaultWall;
+            }
 
-                hit.collider.gameObject.GetComponent<MeshRenderer>().material = color;
-                UpdateWall(color, hit.collider.gameObject);
-            }           
+            GameObject wall = mazeManager.getWall(currentCell[0], currentCell[1], Direction.DegreeToDirection(yDegrees));
+            wall.GetComponent<MeshRenderer>().material = color;
+            UpdateWall(color, wall);            
         }
+        //CLG Below
+
+        //Vector3 directionForward = Direction.DegreeToVector(yDegrees);
+        //RaycastHit hit;
+        //if (Physics.Raycast(playerController.transform.position, directionForward, out hit, paintRange))
+        //{
+        //    if (hit.collider.CompareTag("Wall"))
+        //    {
+        //        if (MaterialToWall(color) != null)
+        //        {
+        //            MaterialToWall(color).GetComponent<MeshRenderer>().material = defaultWall;
+        //        }
+
+        //        hit.collider.gameObject.GetComponent<MeshRenderer>().material = color;
+        //        UpdateWall(color, hit.collider.gameObject);
+        //    }           
+        //}
     }
 
     private void UpdateWall(Material color, GameObject newWall)

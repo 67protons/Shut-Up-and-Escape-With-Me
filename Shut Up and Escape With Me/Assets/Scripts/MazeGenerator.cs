@@ -4,8 +4,9 @@ using System.Collections.Generic;
 
 public class MazeGenerator : MonoBehaviour {	    
     public Maze mazeClass;
-    public GameObject cellPrefab;    
+    public GameObject cellPrefab;
 
+    public List<List<GameObject>> mazeCells = new List<List<GameObject>>();     //Used SOLELY for player painting
 
     void Awake(){        
         generateMaze();
@@ -78,6 +79,7 @@ public class MazeGenerator : MonoBehaviour {
     {
         for (int col = 0; col < mazeClass.width; col++)
         {
+            mazeCells.Add(new List<GameObject>());
             for (int row = 0; row < mazeClass.height; row++)
             {
                 Vector3 cellLocation = new Vector3(col * 3, 0, row * 3);
@@ -91,7 +93,33 @@ public class MazeGenerator : MonoBehaviour {
                 if (mazeClass.wallExists(col, row, Direction.direction.down))
                     newCell.transform.FindChild("DownWall").gameObject.SetActive(true);
                 newCell.transform.parent = mazeClass.transform;
+                mazeCells[col].Add(newCell);
             }
         }
+    }
+
+    public GameObject getWall(int x, int y, Direction.direction direction) {
+        if (mazeClass.wallExists(x, y, direction))
+        {
+            string wall = "";
+            switch (direction)
+            {
+                case Direction.direction.left:
+                    wall = "LeftWall";
+                    break;
+                case Direction.direction.right:
+                    wall = "RightWall";
+                    break;
+                case Direction.direction.up:
+                    wall = "UpWall";
+                    break;
+                case Direction.direction.down:
+                    wall = "DownWall";
+                    break;
+            }
+            return mazeCells[x][y].transform.FindChild(wall).gameObject;
+        }
+        else
+            return null;
     }
 }

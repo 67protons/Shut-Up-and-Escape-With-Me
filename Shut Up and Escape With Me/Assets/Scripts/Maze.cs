@@ -6,14 +6,14 @@ public class Maze : MonoBehaviour {
     public int width = 10;
     public int height = 10;
 
-    public List<List<Cell>> maze = new List<List<Cell>>();
+    public List<List<Cell>> maze = new List<List<Cell>>();    
 
     void Awake(){
         int i = 0;
         for (int col = 0; col < width; col++){
-            maze.Add(new List<Cell>());
+            maze.Add(new List<Cell>());            
             for (int row = 0; row < height; row++){            
-                maze[col].Add(new Cell());
+                maze[col].Add(new Cell());                
                 i++;
             }
         }        

@@ -16,6 +16,27 @@ public class Direction : MonoBehaviour {
         humanoid.transform.rotation = Quaternion.Euler(new Vector3(0, DirectionToDegrees(direction), 0));
     }
 
+    public static Direction.direction DegreeToDirection(float degree)
+    {
+        if (degree >= 315 || degree < 45)   //Direction.up
+        {
+            return Direction.direction.up;
+        }
+        else if (degree >= 45 && degree < 135)  //Direction.right
+        {
+            return Direction.direction.right;
+        }
+        else if (degree >= 135 && degree < 225) //Direction.Down
+        {
+            return Direction.direction.down;
+        }
+        else if (degree >= 225 && degree < 315) //Direction.Left
+        {
+            return Direction.direction.left;
+        }
+        return Direction.direction.up;
+    }
+
     public static float DirectionToDegrees(Direction.direction direction)
     {
         switch (direction)

@@ -102,7 +102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &153239003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +262,10 @@ Prefab:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 1537205364}
+    - target: {fileID: 11479180, guid: e5ffed07ad403694b8ac18281ce426fe, type: 2}
+      propertyPath: mazeManager
+      value: 
+      objectReference: {fileID: 2125074284}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e5ffed07ad403694b8ac18281ce426fe, type: 2}
   m_IsPrefabParent: 0
@@ -2055,4 +2059,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maze: {fileID: 2125074284}
   monsterPrefab: {fileID: 160680, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
-  MonsterCount: 10
+  MonsterCount: 15
