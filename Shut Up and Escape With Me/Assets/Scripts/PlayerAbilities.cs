@@ -17,11 +17,15 @@ public class PlayerAbilities : MonoBehaviour {
     private GameObject yellowWall;
     private PlayerState state;
     private bool droneOut = false;
-	
+    private float acceleration;
+    private float rotation;
+	    
 	void Start () {
         state = this.GetComponent<PlayerState>();
         OVRcamera = playerController.transform.FindChild("OVRCameraRig").gameObject;
-	}
+        acceleration = playerController.GetComponent<OVRPlayerController>().Acceleration;
+        rotation = playerController.GetComponent<OVRPlayerController>().RotationAmount;
+    }
 		
 	void Update () {
         if (Input.GetKeyDown(KeyCode.JoystickButton1))
@@ -76,7 +80,7 @@ public class PlayerAbilities : MonoBehaviour {
         drone = (GameObject)Instantiate(dronePrefab,
             playerController.transform.position + playerController.transform.forward, Quaternion.identity);
         OVRcamera.transform.parent = drone.transform;
-        drone.GetComponent<Rigidbody>().AddForce(state.RotationToVector(yDegrees) * 100, 0);        
+        drone.GetComponent<Rigidbody>().AddForce(state.RotationToVector(yDegrees) * 140, 0);        
     }
 
     private void ReturnPlayer()
@@ -89,8 +93,8 @@ public class PlayerAbilities : MonoBehaviour {
             OVRcamera.transform.position = playerController.transform.position;
             OVRcamera.transform.parent = playerController.transform;
             Destroy(drone);
-            playerController.GetComponent<OVRPlayerController>().Acceleration = 0.3f;
-            playerController.GetComponent<OVRPlayerController>().RotationAmount = 1.5f;      
+            playerController.GetComponent<OVRPlayerController>().Acceleration = acceleration;
+            playerController.GetComponent<OVRPlayerController>().RotationAmount = rotation;      
             droneOut = false;
         }
     }
