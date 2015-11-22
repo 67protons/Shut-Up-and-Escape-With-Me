@@ -1,20 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Monster_Behavior : MonoBehaviour {
-
+public class Monster_Behavior : MonoBehaviour {    
     private int col = 0;
     private int row = 0;
     private Maze maze;
+    private GameObject player;
 
 	// Use this for initialization
 	void Start () {
         maze = GameObject.Find("Maze").GetComponent<Maze>();
+        player = GameObject.Find("Player");
         Orientate(col, row);  
 	}	
 
     void Update ()
     {
+
+        transform.LookAt(player.transform);
         if (GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Destroy"))
             Destroy(this.gameObject);
     }
@@ -25,15 +28,14 @@ public class Monster_Behavior : MonoBehaviour {
         this.row = row;
     }
 
-    void OnTriggerStay(Collider hitObject)
+    void OnTriggerEnter(Collider hitObject)
     {
         //GetComponent<AudioSource>().Play();
         //transform.position = Vector3.MoveTowards(transform.position, other.transform.position, 1);
         //print("Entered!");
         if (hitObject.CompareTag("Player"))
-        {
-            //Debug.Log("SHUTUP AND....");
-            //Debug.Log(Vector3.MoveTowards(transform.position, hitObject.transform.position, Time.deltaTime / 2));
+        {            
+            GetComponent<Animator>().SetBool("rising", true);
         }
     }
 
@@ -59,10 +61,5 @@ public class Monster_Behavior : MonoBehaviour {
             Direction.FaceDirection(this.gameObject, Direction.direction.left);
             return;
         }
-    }
-
-    private void Patrol()
-    {
-
-    }
+    }    
 }
