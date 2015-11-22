@@ -90,6 +90,7 @@ public class MazeGenerator : MonoBehaviour {
                     newCell.transform.FindChild("UpWall").gameObject.SetActive(true);
                 if (mazeClass.wallExists(col, row, Direction.direction.down))
                     newCell.transform.FindChild("DownWall").gameObject.SetActive(true);
+                newCell.transform.parent = mazeClass.transform;
             }
         }
     }
