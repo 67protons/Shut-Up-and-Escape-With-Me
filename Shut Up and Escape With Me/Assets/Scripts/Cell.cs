@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Cell : MonoBehaviour {
+public class Cell {
     private bool leftWall = true;
     private bool rightWall = true;
     private bool upWall = true;
