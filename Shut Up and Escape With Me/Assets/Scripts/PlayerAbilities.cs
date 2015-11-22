@@ -16,8 +16,9 @@ public class PlayerAbilities : MonoBehaviour {
         OVRcamera = playerController.transform.FindChild("OVRCameraRig").gameObject;
 	}
 		
-	void Update () {        
-        if (Input.GetKeyDown(KeyCode.JoystickButton4) || Input.GetKeyDown(KeyCode.Mouse1))
+	void Update () {
+        if (!droneOut && (Input.GetAxisRaw("LeftTrigger") == 1 || Input.GetKeyDown(KeyCode.Mouse1)))
+        //if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             CreateDrone();
         }
@@ -48,22 +49,19 @@ public class PlayerAbilities : MonoBehaviour {
 
     private void CreateDrone()
     {
-        if (!droneOut)
-        {
-            droneOut = true;            
-            playerController.GetComponent<OVRPlayerController>().Acceleration = 0;
-            playerController.GetComponent<OVRPlayerController>().RotationAmount = 0;           
+        droneOut = true;
+        playerController.GetComponent<OVRPlayerController>().Acceleration = 0;
+        playerController.GetComponent<OVRPlayerController>().RotationAmount = 0;
 
-            float yDegrees = playerController.transform.localRotation.eulerAngles.y;
+        float yDegrees = playerController.transform.localRotation.eulerAngles.y;
 
-            //Debug.Log(state.RotationToVector(yDegrees));
-            //Quaternion rotation = Quaternion.Euler(state.RotationToVector(yDegrees));
+        //Debug.Log(state.RotationToVector(yDegrees));
+        //Quaternion rotation = Quaternion.Euler(state.RotationToVector(yDegrees));
 
-            drone = (GameObject)Instantiate(dronePrefab,
-                playerController.transform.position + playerController.transform.forward, Quaternion.identity);
-            OVRcamera.transform.parent = drone.transform;                                  
-            drone.GetComponent<Rigidbody>().AddForce(state.RotationToVector(yDegrees) * 100, 0);
-        }        
+        drone = (GameObject)Instantiate(dronePrefab,
+            playerController.transform.position + playerController.transform.forward, Quaternion.identity);
+        OVRcamera.transform.parent = drone.transform;
+        drone.GetComponent<Rigidbody>().AddForce(state.RotationToVector(yDegrees) * 100, 0);        
     }
 
     private void ReturnPlayer()
