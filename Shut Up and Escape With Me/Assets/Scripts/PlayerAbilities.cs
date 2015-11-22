@@ -23,7 +23,7 @@ public class PlayerAbilities : MonoBehaviour {
     private bool droneOut = false;
     private float acceleration;
     private float rotation;
-    private Vector3 cameraOffset;
+    //private Vector3 cameraOffset = new Vector3(0, 1.314f, .25f);
     private List<GameObject> enemiesInMeleeRange = new List<GameObject>();
 	    
 	void Start () {
@@ -119,7 +119,8 @@ public class PlayerAbilities : MonoBehaviour {
         float yDegrees = playerController.transform.localRotation.eulerAngles.y;        
         drone = (GameObject)Instantiate(dronePrefab,
             playerController.transform.position + playerController.transform.forward, Quaternion.identity);
-        cameraOffset = OVRcamera.transform.position;
+        // = OVRcamera.transform.localPosition;
+        //Debug.Log(cameraOffset);
         OVRcamera.transform.parent = drone.transform;
         drone.GetComponent<Rigidbody>().AddForce(Direction.DegreeToVector(yDegrees) * 140, 0);        
     }
@@ -129,8 +130,9 @@ public class PlayerAbilities : MonoBehaviour {
         if (droneOut)
         {
             SetHeadTo(false);
-            OVRcamera.GetComponentInChildren<OVRScreenFade>().OnEnable();            
-            OVRcamera.transform.position = cameraOffset;
+            OVRcamera.GetComponentInChildren<OVRScreenFade>().OnEnable();                        
+            OVRcamera.transform.rotation = playerController.transform.rotation;
+            OVRcamera.transform.position = playerController.transform.position + playerController.transform.forward/4;
             OVRcamera.transform.parent = playerController.transform;
             Destroy(drone);
             playerController.GetComponent<OVRPlayerController>().Acceleration = acceleration;

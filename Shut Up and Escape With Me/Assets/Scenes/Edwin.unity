@@ -228,19 +228,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 416198, guid: 905a9f74cf3e0ad4a8321989621e1e37, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -.0937465355
+      value: -.0937465429
       objectReference: {fileID: 0}
     - target: {fileID: 416198, guid: 905a9f74cf3e0ad4a8321989621e1e37, type: 2}
       propertyPath: m_LocalRotation.y
-      value: .697855115
+      value: .697855175
       objectReference: {fileID: 0}
     - target: {fileID: 416198, guid: 905a9f74cf3e0ad4a8321989621e1e37, type: 2}
       propertyPath: m_LocalRotation.z
-      value: .707468987
+      value: .707469046
       objectReference: {fileID: 0}
     - target: {fileID: 416198, guid: 905a9f74cf3e0ad4a8321989621e1e37, type: 2}
       propertyPath: m_LocalRotation.w
-      value: .0608067028
+      value: .0608067065
       objectReference: {fileID: 0}
     - target: {fileID: 11417586, guid: 905a9f74cf3e0ad4a8321989621e1e37, type: 2}
       propertyPath: useCurvesHeight
