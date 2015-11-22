@@ -16,13 +16,13 @@ public class PlayerAbilities : MonoBehaviour {
     private GameObject redWall;
     private GameObject blueWall;
     private GameObject yellowWall;
-    private PlayerState state;
+    //private PlayerState state;
     private bool droneOut = false;
     private float acceleration;
     private float rotation;
 	    
 	void Start () {
-        state = this.GetComponent<PlayerState>();
+        //state = this.GetComponent<PlayerState>();
         OVRcamera = playerController.transform.FindChild("OVRCameraRig").gameObject;
         acceleration = playerController.GetComponent<OVRPlayerController>().Acceleration;
         rotation = playerController.GetComponent<OVRPlayerController>().RotationAmount;
@@ -30,21 +30,20 @@ public class PlayerAbilities : MonoBehaviour {
     }
 		
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.JoystickButton1))
+        if (Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Z))
         {
             PaintWall(redSeal);
         }
-        if (Input.GetKeyDown(KeyCode.JoystickButton2))
+        if (Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.X))
         {
             PaintWall(blueSeal);
         }
-        if (Input.GetKeyDown(KeyCode.JoystickButton3))
+        if (Input.GetKeyDown(KeyCode.JoystickButton3) || Input.GetKeyDown(KeyCode.C))
         {
             PaintWall(yellowSeal);
         }
 
-        if (!droneOut && (Input.GetAxisRaw("LeftTrigger") == 1 || Input.GetKeyDown(KeyCode.Mouse1)))
-        //if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (!droneOut && (Input.GetAxisRaw("LeftTrigger") == 1 || Input.GetKeyDown(KeyCode.Mouse1)))        
         {
             CreateDrone();
         }
@@ -68,6 +67,11 @@ public class PlayerAbilities : MonoBehaviour {
         }
     }
 
+    private void MeleeAtack()
+    {
+
+    }
+
     private void CreateDrone()
     {
         droneOut = true;
@@ -76,15 +80,12 @@ public class PlayerAbilities : MonoBehaviour {
 
         SetHeadTo(true);
 
-        float yDegrees = playerController.transform.localRotation.eulerAngles.y;
-
-        //Debug.Log(state.RotationToVector(yDegrees));
-        //Quaternion rotation = Quaternion.Euler(state.RotationToVector(yDegrees));
+        float yDegrees = playerController.transform.localRotation.eulerAngles.y;        
 
         drone = (GameObject)Instantiate(dronePrefab,
             playerController.transform.position + playerController.transform.forward, Quaternion.identity);
         OVRcamera.transform.parent = drone.transform;
-        drone.GetComponent<Rigidbody>().AddForce(state.RotationToVector(yDegrees) * 140, 0);        
+        drone.GetComponent<Rigidbody>().AddForce(Direction.DegreeToVector(yDegrees) * 140, 0);        
     }
 
     private void ReturnPlayer()
@@ -92,9 +93,7 @@ public class PlayerAbilities : MonoBehaviour {
         if (droneOut)
         {
             SetHeadTo(false);
-            OVRcamera.GetComponentInChildren<OVRScreenFade>().OnEnable();
-
-            //OVRcamera.transform.rotation = Quaternion.identity;
+            OVRcamera.GetComponentInChildren<OVRScreenFade>().OnEnable();            
             OVRcamera.transform.position = playerController.transform.position;
             OVRcamera.transform.parent = playerController.transform;
             Destroy(drone);
@@ -107,19 +106,20 @@ public class PlayerAbilities : MonoBehaviour {
     private void PaintWall(Material color)
     {
         float yDegrees = playerController.transform.localRotation.eulerAngles.y;
-        Vector3 directionForward = state.RotationToVector(yDegrees);
+        Vector3 directionForward = Direction.DegreeToVector(yDegrees);
         RaycastHit hit;
         if (Physics.Raycast(playerController.transform.position, directionForward, out hit, 3))
         {
-
-            if (MaterialToWall(color) != null)
+            if (hit.collider.CompareTag("Wall"))
             {
-                MaterialToWall(color).GetComponent<MeshRenderer>().material = defaultWall;
-            }
+                if (MaterialToWall(color) != null)
+                {
+                    MaterialToWall(color).GetComponent<MeshRenderer>().material = defaultWall;
+                }
 
-            hit.collider.gameObject.GetComponent<MeshRenderer>().material = color;
-            UpdateWall(color, hit.collider.gameObject);
-
+                hit.collider.gameObject.GetComponent<MeshRenderer>().material = color;
+                UpdateWall(color, hit.collider.gameObject);
+            }           
         }
     }
 

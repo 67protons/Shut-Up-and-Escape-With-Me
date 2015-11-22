@@ -7,11 +7,7 @@ public class DroneController : MonoBehaviour {
 
     void OnTriggerEnter(Collider hitObject)
     {
-        collided = true;
-    }
-
-    //public void Initialize(PlayerAbilities pa)
-    //{
-    //    this.pa = pa;
-    //}
+        if (hitObject.GetType() == typeof(BoxCollider))
+            collided = true;
+    }        
 }

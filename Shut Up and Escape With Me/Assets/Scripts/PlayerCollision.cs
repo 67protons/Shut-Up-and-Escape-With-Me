@@ -10,6 +10,11 @@ public class PlayerCollision : MonoBehaviour
 
     void OnTriggerEnter(Collider hitObject)
     {
-        Debug.Log(hitObject.name);
+
+        if(hitObject.CompareTag("Enemy"))
+        {
+            if(hitObject.GetType() == typeof(BoxCollider))
+                Debug.Log(hitObject);
+        }
     }
 }
